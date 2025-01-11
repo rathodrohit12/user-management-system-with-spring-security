@@ -46,7 +46,7 @@ public class OtpServiceImpl implements OtpService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("rohit8064r@gmail.com", "My Website");
+        helper.setFrom("@gmail.com", "My Website");
         helper.setTo(user.getEmail());
 
         String subject = "Here's your One Time Password (OTP) - Expire in 5 minutes!";
