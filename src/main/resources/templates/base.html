@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="page(content)" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        .moving-text {
+            display: inline-block;
+            animation: move 5s linear infinite;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(50px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" th:href="@{/}">MyWebsite</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/about}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/contact}">Contact</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+
+
+                <!-- Check if user is authenticated -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/login-page}" th:method="get">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/register-page}" th:method="get">Register</a>
+                </li>
+                <li class="nav-item dropdown" th:if="${session.userEmail != null and session.userEmail != ''}">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <span>User</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><strong style="color: red" class="dropdown-item" th:text="${session.userEmail}">Default text
+                            if username is not set</strong></li>
+                        <!--                        <li><a class="dropdown-item" href="#" th:href="@{/user/profile}" th:method="get">Profile</a>-->
+                        <!--                        </li>-->
+
+                        <!-- Conditionally render Profile based on isAdmin flag -->
+                        <li th:if="${session.isAdmin}">
+                            <a class="dropdown-item" href="#" th:href="@{/admin/profile}" th:method="get">Admin Profile</a>
+                        </li>
+
+                        <li th:if="${not session.isAdmin}">
+                            <a class="dropdown-item" href="#" th:href="@{/user/profile}" th:method="get">User Profile</a>
+                        </li>
+
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/logout}" th:method="get">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Header -->
+<header class="bg-primary text-white text-center py-2">
+    <div class="container">
+        <h1>Welcome to My Website</h1>
+        <p>Your one-stop solution for amazing content</p>
+    </div>
+</header>
+
+
+<!-- Main Content -->
+<main class="container my-5">
+    <div th:replace="${content}"></div>
+</main>
+
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+        <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+    </div>
+</footer>
+
+
+<!-- Add your JS framework links if needed -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

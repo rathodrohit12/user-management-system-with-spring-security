@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::page(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Page</title>
+</head>
+<body>
+<section class="container my-4 bg-light p-4 rounded shadow-sm" style="max-width: 600px; margin: auto;">
+
+    <form th:action="@{/admin/edit/{id}(id=${user.id})}" th:object="${user}" method="post">
+        <h1 class="text-center mb-4">Update Information</h1>
+        <div th:if="${not #lists.isEmpty(msg)}" class="alert" th:classappend="${msgType}">
+            <span th:text="${msg}"></span>
+        </div>
+        <!-- Name Field -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Enter Name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Enter your name">
+            <div th:if="${#fields.hasErrors('name')}" class="alert alert-danger mt-2">
+                <span th:errors="*{name}"></span>
+            </div>
+        </div>
+
+        <!-- Email Field -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Enter Email</label>
+            <input type="email" id="email" th:field="*{email}" class="form-control" placeholder="Enter your email">
+            <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger mt-2">
+                <span th:errors="*{email}"></span>
+            </div>
+        </div>
+
+        <!-- Mobile Field -->
+        <div class="mb-3">
+            <label for="mobile" class="form-label">Enter Mobile Number</label>
+            <input type="tel" id="mobile" th:field="*{mobile}" class="form-control"
+                   placeholder="Enter your mobile number">
+            <div th:if="${#fields.hasErrors('mobile')}" class="alert alert-danger mt-2">
+                <span th:errors="*{mobile}"></span>
+            </div>
+        </div>
+
+        <!-- Password Field -->
+<!--        <div class="mb-3">-->
+<!--            <label for="pass" class="form-label">Enter Password</label>-->
+<!--            <input type="password" id="pass" th:field="*{pass}" class="form-control" placeholder="Enter your password">-->
+<!--            <div th:if="${#fields.hasErrors('pass')}" class="alert alert-danger mt-2">-->
+<!--                <span th:errors="*{pass}"></span>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <!-- Submit and Reset Buttons -->
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+    </form>
+
+</section>
+
+
+</body>
+</html>

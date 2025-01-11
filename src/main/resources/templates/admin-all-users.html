@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::page(~{::section})}">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>All Users</title>
+</head>
+<body>
+<section>
+    <div class="container">
+        <div class="row">
+            <h1> All Users </h1>
+        </div>
+
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th> Name</th>
+                <th> Email</th>
+                <th> Mobile</th>
+                <th colspan="2">Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="user : ${allUsers}">
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.mobile}"></td>
+                <td><a th:href="@{/admin/edit/{id}(id=${user.id})}">Edit</a></td>
+				<td>
+					<a th:href="@{/admin/delete/{id}(id=${user.id})}"
+					   onclick="return confirm('Are you sure you want to delete this user?');">
+						Delete
+					</a>
+				</td>
+            </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+</body>
+
+</html>

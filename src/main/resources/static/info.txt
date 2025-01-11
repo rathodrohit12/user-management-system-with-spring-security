@@ -1,0 +1,61 @@
+1.Login Request:
+The client (e.g., a web application or REST client) sends a login request with a username and password to the application.
+
+2.AuthenticationManager:
+Spring Security’s AuthenticationManager is triggered to authenticate the user.
+
+3.AuthenticationProvider:
+The AuthenticationManager delegates the authentication process to an AuthenticationProvider.
+For username-password authentication, this is typically DaoAuthenticationProvider.
+
+4.UserDetailsService:
+The DaoAuthenticationProvider calls UserDetailsService.loadUserByUsername(username) to retrieve the user’s information from database.
+A custom implementation of UserDetailsService fetches user data from a database or other data source and returns a UserDetails object.
+
+5.Password Validation:
+Once the UserDetails is returned, the DaoAuthenticationProvider compares the password provided in the login request with the password stored in the UserDetails object.
+Password encoding (e.g., BCrypt) is used during this comparison.
+
+6.Authentication Token:
+If the password matches and the account is valid (non-expired, non-locked, etc.), an Authentication object is created and stored in the SecurityContext.
+
+7.Success or Failure:
+If authentication succeeds, the user is granted access to the requested resource.
+If authentication fails, an exception (e.g., BadCredentialsException) is thrown.
+
+
+
+
+Explanation of Each Handler
+DuplicateKeyException:
+
+Handles duplicate entries, such as duplicate email or mobile numbers.
+Sets 409 Conflict status.
+UsernameNotFoundException:
+
+Common in Spring Security when a user is not found during login.
+Returns a 404 Not Found status with a user-friendly message.
+IllegalArgumentException:
+
+Handles invalid arguments passed to methods.
+Returns a 400 Bad Request status with a descriptive error message.
+MethodArgumentNotValidException:
+
+Triggered when a method argument annotated with @Valid fails validation.
+Collects validation errors from the BindingResult and constructs a descriptive error message.
+Sets 400 Bad Request status.
+Generic Exception:
+
+Catches any unhandled exceptions and sets a 500 Internal Server Error status with a generic error message.
+
+
+
+
+
+
+
+
+
+
+
+

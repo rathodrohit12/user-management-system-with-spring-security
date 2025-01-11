@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::page(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+</head>
+<body>
+<section>
+
+
+    <div class="container mt-4">
+        <div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3" th:object = "${user}">
+            <h4>Personal Information</h4>
+
+            <p><strong>Name:</strong> <span th:text="${user.name}"></span></p>
+            <p><strong>Mobile:</strong> <span th:text="${user.mobile}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+
+            <form th:action="@{/user/edit/{id}(id=${session.userId})}" method="get">
+                <button class="btn btn-primary mt-3" type="submit" data-bs-toggle="modal" data-bs-target="#updateModal">
+                    Update
+                </button>
+            </form>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>
